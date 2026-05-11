@@ -18,6 +18,20 @@ body {
   margin-right: auto;
 }
 
+/* Force override of tagDiv/Newspaper theme default ghost boxes */
+.mag-wrap.custom-premium-carousel p:empty,
+.mag-wrap.custom-premium-carousel br,
+.mag-wrap.custom-premium-carousel a:empty {
+  display: none !important;
+}
+.mag-wrap.custom-premium-carousel::before,
+.mag-wrap.custom-premium-carousel::after,
+.mag-wrap.custom-premium-carousel *::before,
+.mag-wrap.custom-premium-carousel *::after {
+  content: none !important;
+  display: none !important;
+}
+
 .mag-wrap.custom-premium-carousel * {
   box-sizing: border-box;
 }

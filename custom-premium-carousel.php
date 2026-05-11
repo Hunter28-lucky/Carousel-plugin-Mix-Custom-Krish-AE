@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Custom Premium Carousel for MetaSlider
  * Description: Integrates a custom premium HTML/CSS/JS active-scaling carousel with the MetaSlider backend data dynamically. Includes GitHub Auto-Updater.
- * Version: 1.1.0
- * Author: GitHub Copilot
+ * Version: 1.3.0
+ * Author: Krish
  * License: GPL-2.0+
  * GitHub Plugin URI: https://github.com/Hunter28-lucky/Carousel-plugin-Mix-Custom-Krish-AE
  */
