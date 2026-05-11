@@ -16,16 +16,24 @@ if ( ! defined( 'WPINC' ) ) {
 // -------------------------------------------------------------
 // GITHUB AUTO-UPDATER
 // -------------------------------------------------------------
-add_action('admin_init', 'custom_premium_carousel_github_updater');
-function custom_premium_carousel_github_updater() {
-    // A simple, lightweight check to pull the latest release from GitHub
-    // Normally, developers use Plugin Update Checker library, but we can do a lightweight version.
-    
-    // Note: For automatic updates to work flawlessly from private or public GitHub repos without external libraries, 
-    // we highly recommend using the "Plugin Update Checker" by YahnisElsts. 
-    // However, I have added the GitHub Plugin URI header above which works natively with the "GitHub Updater" plugin 
-    // if installed on your WordPress site. 
-}
+require plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+    'https://github.com/Hunter28-lucky/Carousel-plugin-Mix-Custom-Krish-AE/',
+    __FILE__,
+    'custom-premium-carousel'
+);
+// Set the branch to check against
+$myUpdateChecker->setBranch('main');
+
+// Force automatic background updates so you don't even have to click "Update"
+add_filter('auto_update_plugin', function ($update, $item) {
+    if (isset($item->slug) && $item->slug === 'custom-premium-carousel') {
+        return true; 
+    }
+    return $update;
+}, 10, 2);
 
 class Custom_Premium_Carousel {
 
@@ -208,7 +216,13 @@ class Custom_Premium_Carousel {
             <div class="dots dots-container"></div>
         </div>
         <?php
-        return ob_get_clean();
+        $output = ob_get_clean();
+        
+        // FIX: WordPress core 'wpautop' turns physical line breaks from this PHP file into empty HTML `<br>` and `<p>` tags. 
+        // This causes the mysterious empty tiny grey boxes. Removing line breaks fixes it instantly.
+        $output = str_replace( array( "\r", "\n" ), '', $output );
+        
+        return $output;
     }
 }
 
